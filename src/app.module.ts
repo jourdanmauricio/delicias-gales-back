@@ -13,6 +13,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { SeederService } from './seeder.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
+import { FilesModule } from './modules/files/files.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { User } from './entities/user.entity';
     DatabseModule,
     UsersModule,
     AuthModule,
+    FilesModule,
     JwtModule.register({
       global: true,
       // signOptions: { expiresIn: '1h' },

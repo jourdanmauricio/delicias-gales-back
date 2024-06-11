@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { UUID } from 'crypto';
+// import { UserAuthGuard } from 'src/guards/userAuth.guard';
 
 @Injectable()
 export class UsersService {
@@ -33,8 +34,18 @@ export class UsersService {
     return await this.usersRepository.save(newUser);
   }
 
-  update(id: UUID, changes: UpdateUserDto) {
-    return `This action updates a #${id}, ${changes} user`;
+  async update(id: UUID, changes: UpdateUserDto) {
+    const user = await this.findOne(id);
+
+    // if (changes.password) {
+    //   const hashedPass = await bcrypt.hash(changes.password, 10);
+    //   changes = { ...changes, password: hashedPass };
+    //   if (!user.activationDate)
+    //     changes = { ...changes, activationDate: new Date() };
+    // }
+
+    const updUser = this.usersRepository.merge(user, changes);
+    return this.usersRepository.save(updUser);
   }
 
   // remove(id: UUID) {
