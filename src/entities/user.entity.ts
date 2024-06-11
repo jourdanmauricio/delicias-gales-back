@@ -7,14 +7,17 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Order } from './order.entity';
+import { v4 as uuid } from 'uuid';
 
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string = uuid();
 
   @Column({ type: 'varchar', length: 250 })
   name: string;
@@ -89,4 +92,7 @@ export class User {
     onUpdate: 'now()',
   })
   updatedAt: Date;
+
+  @OneToMany(() => Order, order => order.user)
+  orders: Order[];
 }
