@@ -16,21 +16,19 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 150 })
+  @Column({ type: 'varchar', length: 250 })
   name: string;
-
-  @Column({ type: 'varchar', length: 150 })
-  lastname: string;
-
-  @Column({ type: 'varchar', length: 15 })
-  phone: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 15, nullable: true })
+  phone: string;
+
+  @Column({ type: 'varchar', length: 20, nullable: true })
   identification: string;
 
+  @Exclude()
   @Column({ type: 'varchar', length: 255 })
   password: string;
 

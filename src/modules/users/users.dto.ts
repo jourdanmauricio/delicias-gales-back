@@ -29,19 +29,11 @@ export class LoginUserDto {
 export class CreateUserDto {
   /**
    * Nombre del usuario
-   * @example Juan
+   * @example Juan Perez
    */
   @IsString({ message: 'Name debe ser un string' })
   @IsNotEmpty({ message: 'Name no debe estar vacío' })
   name: string;
-
-  /**
-   * Apellido del usuario
-   * @example Perez
-   */
-  @IsString({ message: 'Lastname debe ser un string' })
-  @IsNotEmpty({ message: 'Lastname no debe estar vacío' })
-  lastname: string;
 
   /**
    *Correo electrónico del usuario
@@ -76,7 +68,7 @@ export class CreateUserDto {
    * @example +5401158046525
    */
   @IsString({ message: 'Phone debe ser un string' })
-  @IsNotEmpty({ message: 'Phone no debe estar vacío' })
+  @IsOptional()
   phone: string;
 
   /**
@@ -84,7 +76,7 @@ export class CreateUserDto {
    * @example 1234567890
    */
   @IsString({ message: 'Identificación Debe ser un string' })
-  @IsNotEmpty({ message: 'Identificación no debe estar vacío' })
+  @IsOptional()
   identification: string;
 
   /**
