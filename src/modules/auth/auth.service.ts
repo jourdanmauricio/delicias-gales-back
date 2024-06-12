@@ -80,8 +80,10 @@ export class AuthService {
       if (user.recoveryToken !== token)
         throw new BadRequestException('Token inválido');
 
+      const hashPass = await bcrypt.hash(password, 10);
+
       const updUser = await this.usersService.update(payload.id, {
-        password,
+        password: hashPass,
         recoveryToken: null,
       });
 
