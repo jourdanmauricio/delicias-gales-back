@@ -3,7 +3,7 @@ import { UploadApiResponse, v2 } from 'cloudinary';
 import * as toStream from 'buffer-to-stream';
 import { config as dotenvConfig } from 'dotenv';
 
-dotenvConfig({ path: '.env.development' });
+dotenvConfig({ path: '.env' });
 
 @Injectable()
 export class FilesService {

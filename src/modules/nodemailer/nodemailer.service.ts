@@ -8,7 +8,7 @@ import { config as dotenvConfig } from 'dotenv';
 import forgotPassEmail from 'src/templates/forgotPassEmailTemplate';
 
 dotenvConfig({
-  path: '.env.development',
+  path: '.env',
 });
 
 @Injectable()
