@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { User } from 'src/entities/user.entity';
 import config from '../config';
+import { Order } from 'src/entities/order.entity';
 
 const API_KEY = '12345678';
 const API_KEY_PROD = 'PROD12345678';
@@ -26,7 +27,7 @@ const API_KEY_PROD = 'PROD12345678';
           database: dbName,
           // Migraciones -> pasamos synchronize a false, comentamos entities
           // y dropschema
-          entities: [User],
+          entities: [User, Order],
           synchronize: true,
           autoLoadEntities: true,
           // dropSchema: true,

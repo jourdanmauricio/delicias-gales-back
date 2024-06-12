@@ -1,14 +1,11 @@
-import { OrderStatus } from "src/models/orderStatus.enum";
-import { PaymentMethod } from "src/models/paymentMethods.enum";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user.entity";
+import { OrderStatus } from 'src/models/orderStatus.enum';
+import { PaymentMethod } from 'src/models/paymentMethods.enum';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
-
-
 
 @Entity('orders')
 export class Order {
-
   @PrimaryGeneratedColumn('uuid')
   id: string = uuid();
 
@@ -27,7 +24,11 @@ export class Order {
   @Column()
   total: number;
 
-  @Column({ type: 'enum', enum: PaymentMethod, default: PaymentMethod.EFECTIVO })
+  @Column({
+    type: 'enum',
+    enum: PaymentMethod,
+    default: PaymentMethod.EFECTIVO,
+  })
   payment_method: PaymentMethod;
 
   @Column({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
@@ -39,7 +40,6 @@ export class Order {
   @Column()
   nro_factura: string;
 
-  @ManyToOne(() => User, user => user.orders)
+  @ManyToOne(() => User, (user) => user.orders)
   user: User;
-
- }
+}
