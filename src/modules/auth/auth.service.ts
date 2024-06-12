@@ -1,15 +1,12 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { UUID } from 'crypto';
+
 import { UsersService } from '../users/users.service';
+import { NodemailerService } from '../nodemailer/nodemailer.service';
 import { CreateUserDto } from '../users/users.dto';
 import { LoginUserDto, RecoveryPassDto } from './auth.dto';
-import { UUID } from 'crypto';
-import { NodemailerService } from '../nodemailer/nodemailer.service';
 
 @Injectable()
 export class AuthService {
@@ -23,11 +20,11 @@ export class AuthService {
     const { email, password } = credentials;
 
     const user = await this.usersService.findByEmail(email);
-    if (!user) throw new UnauthorizedException('Invalid credenttials');
+    if (!user) throw new BadRequestException('Credenciales inválidas');
 
-    const matchPass = await bcrypt.compare(password, user.password);
+    const matchPassword = await bcrypt.compare(password, user.password);
 
-    if (!matchPass) throw new UnauthorizedException('Invalid credenttials');
+    if (!matchPassword) throw new BadRequestException('Credenciales inválidas');
 
     const userPayload = {
       sub: user.id,
