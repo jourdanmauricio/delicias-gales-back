@@ -20,12 +20,10 @@ export class AuthService {
     const { email, password } = credentials;
 
     const user = await this.usersService.findByEmail(email);
-    console.log('user', user);
     if (!user) throw new BadRequestException('Credenciales inválidas');
 
     const matchPassword = await bcrypt.compare(password, user.password);
 
-    console.log('matchPassword', matchPassword);
     if (!matchPassword) throw new BadRequestException('Credenciales inválidas');
 
     const userPayload = {
