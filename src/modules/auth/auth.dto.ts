@@ -25,7 +25,7 @@ export class RecoveryPassDto {
   })
   @MinLength(8)
   @MaxLength(15)
-  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-8])(?=.*[!@#$%^&*])/)
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-8])(?=.*[!@#$%^&*_])/)
   @IsNotEmpty()
   password: string;
 
