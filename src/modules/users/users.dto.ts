@@ -18,14 +18,6 @@ import { CustomerType } from 'src/models/customerType.enum';
 import { Role } from 'src/models/roles.enum';
 import { UserStatus } from 'src/models/userStatus.enum';
 
-export class LoginUserDto {
-  @IsNotEmpty()
-  email: string;
-
-  @IsNotEmpty()
-  password: string;
-}
-
 export class CreateUserDto {
   /**
    * Nombre del usuario

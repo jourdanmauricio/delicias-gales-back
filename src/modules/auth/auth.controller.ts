@@ -1,7 +1,8 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateUserDto, LoginUserDto } from '../users/users.dto';
+import { CreateUserDto } from '../users/users.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { ForgotPasswordDto, LoginUserDto, RecoveryPassDto } from './auth.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -16,5 +17,15 @@ export class AuthController {
   @Post('signup')
   signup(@Body() date: CreateUserDto) {
     return this.authService.signup(date);
+  }
+
+  @Put('forgot-password')
+  forgotPassword(@Body() data: ForgotPasswordDto) {
+    return this.authService.forgotPassword(data.email);
+  }
+
+  @Put('recovery-password')
+  recoveryPass(@Body() data: RecoveryPassDto) {
+    return this.authService.recoveryPass(data);
   }
 }
