@@ -2,8 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinTable,
-  ManyToMany,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -11,16 +10,13 @@ import { Product } from './product.entity';
 import { Exclude } from 'class-transformer';
 import { ApiHideProperty } from '@nestjs/swagger';
 
-@Entity({ name: 'categories' })
-export class Category {
+@Entity({ name: 'brands' })
+export class Brand {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 255, unique: true })
   name: string;
-
-  @Column({ type: 'varchar', length: 255 })
-  image: string;
 
   @Exclude()
   @ApiHideProperty()
@@ -41,15 +37,6 @@ export class Category {
   })
   updatedAt: Date;
 
-  @ManyToMany(() => Product, (product) => product.categories)
-  @JoinTable({
-    name: 'products_categories',
-    joinColumn: {
-      name: 'category_id',
-    },
-    inverseJoinColumn: {
-      name: 'product_id',
-    },
-  })
+  @OneToMany(() => Product, (product) => product.brand)
   products: Product[];
 }
