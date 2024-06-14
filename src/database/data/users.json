@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Jose produce",
+    "phone": "311223334",
+    "email": "employee@gales.com",
+    "identification": "12345679",
+    "role": "employee"
+  },
+  {
+    "name": "Juan Vendedor",
+    "phone": "311223332",
+    "email": "seller@gales.com",
+    "identification": "12345678",
+    "role": "seller"
+  }
+]

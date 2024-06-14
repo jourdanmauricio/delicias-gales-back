@@ -14,6 +14,10 @@ import { SeederService } from './seeder.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { FilesModule } from './modules/files/files.module';
+import { CategoriesModule } from './modules/categories/categories.module';
+import { Category } from './entities/category.entity';
+import { ProductsModule } from './modules/products/products.module';
+import { BrandsModule } from './modules/brands/brands.module';
 
 @Module({
   imports: [
@@ -29,7 +33,7 @@ import { FilesModule } from './modules/files/files.module';
       //   POSTGRES_PASSWORD: Joi.string().required(),
       // }),
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Category]),
     DatabseModule,
     UsersModule,
     AuthModule,
@@ -39,6 +43,9 @@ import { FilesModule } from './modules/files/files.module';
       // signOptions: { expiresIn: '1h' },
       secret: process.env.JWT_SECRET,
     }),
+    CategoriesModule,
+    ProductsModule,
+    BrandsModule,
   ],
   controllers: [AppController],
   providers: [AppService, SeederService],

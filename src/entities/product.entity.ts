@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToMany,
+  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -12,6 +14,8 @@ import {
 import { Category } from './category.entity';
 import { ProductImages } from './productImage';
 import { ProductInventories } from './productInventory';
+import { Brand } from './brand.entity';
+import { ProductStatus } from 'src/models/productStatus.enum';
 
 @Entity('products')
 export class Product {
@@ -25,7 +29,7 @@ export class Product {
   cod: string;
 
   @Column({ type: 'varchar', length: 40, nullable: true })
-  sku: string;
+  sku?: string;
 
   @Column({
     type: 'decimal',
@@ -57,6 +61,9 @@ export class Product {
   @Column({ type: 'int', nullable: true })
   max_quantity: number;
 
+  @Column({ type: 'enum', enum: ProductStatus, default: ProductStatus.ACTIVE })
+  status: ProductStatus;
+
   @Column({ type: 'varchar', length: 255 })
   thumbnail: string;
 
@@ -81,6 +88,10 @@ export class Product {
     onUpdate: 'now()',
   })
   updatedAt: Date;
+
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brand_id' })
+  brand: Brand;
 
   @ManyToMany(() => Category, (category) => category.products)
   categories: Category[];
