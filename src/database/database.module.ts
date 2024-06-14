@@ -6,6 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import config from '../config';
 import { Order } from 'src/entities/order.entity';
+import { Category } from 'src/entities/category.entity';
+import { Product } from 'src/entities/product.entity';
+import { ProductImages } from 'src/entities/productImage';
+import { ProductInventories } from 'src/entities/productInventory';
 
 const API_KEY = '12345678';
 const API_KEY_PROD = 'PROD12345678';
@@ -27,12 +31,19 @@ const API_KEY_PROD = 'PROD12345678';
           database: dbName,
           // Migraciones -> pasamos synchronize a false, comentamos entities
           // y dropschema
-          entities: [User, Order],
+          entities: [
+            User,
+            Category,
+            Order,
+            Product,
+            ProductImages,
+            ProductInventories,
+          ],
           synchronize: true,
           autoLoadEntities: true,
-          // dropSchema: true,
           logging: ['error'],
           // logging: true,
+          // dropSchema: true,
         };
       },
     }),
