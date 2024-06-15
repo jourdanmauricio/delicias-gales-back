@@ -20,6 +20,14 @@ export class Category {
   name: string;
 
   @Column({ type: 'varchar', length: 255 })
+  description: string;
+
+  @Column({
+    type: 'varchar',
+    length: 255,
+    default:
+      'https://res.cloudinary.com/dn7npxeof/image/upload/v1718440744/Henry/delicias-gales/photo-off_vrckds.svg',
+  })
   image: string;
 
   @Exclude()

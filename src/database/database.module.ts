@@ -43,7 +43,7 @@ const API_KEY_PROD = 'PROD12345678';
           autoLoadEntities: true,
           logging: ['error'],
           // logging: true,
-          dropSchema: true,
+          // dropSchema: true,
         };
       },
     }),

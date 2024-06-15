@@ -22,7 +22,13 @@ export class CategoriesService {
   }
 
   async findAll() {
-    const categories = await this.categoryRepository.find();
+    const categories = await this.categoryRepository
+      .createQueryBuilder('category')
+      .leftJoin('category.products', 'product')
+      .groupBy('category.id')
+      .select(['category.*'])
+      .addSelect('COUNT(product.id)', 'productCount')
+      .getRawMany();
     return categories;
   }
 

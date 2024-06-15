@@ -1,10 +1,12 @@
 [
   {
     "name": "Chorizos secos",
+    "description": "Descubre nuestra selecta variedad de chorizos artesanales, elaborados con las mejores carnes y un cuidadoso proceso de curado que asegura un sabor y una textura inigualables",
     "image": "https://res.cloudinary.com/dn7npxeof/image/upload/v1718383648/Henry/delicias-gales/products/cat_chorizos_kodeqh.webp"
   },
   {
     "name": "Jabones",
+    "description": "Mantén tu vajilla impecable con nuestra línea de jabones formulados para ofrecer una limpieza profunda y eficaz sin comprometer el cuidado del medio ambiente ni la salud de tu familia",
     "image": "https://res.cloudinary.com/dn7npxeof/image/upload/v1718383047/Henry/delicias-gales/products/cat_jabones_mpngbu.webp"
   }
 ]
