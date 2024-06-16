@@ -12,8 +12,16 @@ export class BrandService {
     @InjectRepository(Brand) private brandRepository: Repository<Brand>,
   ) {}
 
-  findAll() {
-    return this.brandRepository.find();
+  async findAll() {
+    //return this.brandRepository.find();
+    const brands = await this.brandRepository
+      .createQueryBuilder('brand')
+      .leftJoin('brand.products', 'product')
+      .groupBy('brand.id')
+      .select(['brand.id, brand.name'])
+      .addSelect('COUNT(product.id)', 'productCount')
+      .getRawMany();
+    return brands;
   }
 
   async findOne(id: UUID) {
