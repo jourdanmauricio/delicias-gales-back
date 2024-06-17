@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 
 import { CreateBrandDto, UpdateBrandDto } from './brand.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -39,9 +43,12 @@ export class BrandService {
     return brand;
   }
 
-  create(data: CreateBrandDto) {
+  async create(data: CreateBrandDto) {
+    const brand = await this.findOneByName(data.name);
+    if (brand) throw new BadRequestException('La marca ya existe');
+
     const newBrand = this.brandRepository.create(data);
-    return this.brandRepository.save(newBrand);
+    return await this.brandRepository.save(newBrand);
   }
 
   async update(id: UUID, changes: UpdateBrandDto) {
@@ -50,7 +57,9 @@ export class BrandService {
     return this.brandRepository.save(brand);
   }
 
-  remove(id: UUID) {
-    return this.brandRepository.delete(id);
+  async remove(id: UUID) {
+    await this.findOne(id);
+    await this.brandRepository.delete(id);
+    return { id };
   }
 }

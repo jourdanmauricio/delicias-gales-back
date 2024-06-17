@@ -3,21 +3,19 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AttributesService } from './attributes.service';
 import { CreateAttributeDto, UpdateAttributeDto } from './attribute.dto';
+import { UUID } from 'crypto';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('attributes')
 export class AttributesController {
   constructor(private readonly attributesService: AttributesService) {}
-
-  @Post()
-  create(@Body() createAttributeDto: CreateAttributeDto) {
-    return this.attributesService.create(createAttributeDto);
-  }
 
   @Get()
   findAll() {
@@ -25,20 +23,27 @@ export class AttributesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attributesService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: UUID) {
+    return this.attributesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Post()
+  create(@Body() data: CreateAttributeDto) {
+    return this.attributesService.create(data);
+  }
+
+  @Put(':id')
+  @ApiOperation({ summary: 'Modifica un atributo por id' })
   update(
-    @Param('id') id: string,
-    @Body() updateAttributeDto: UpdateAttributeDto,
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @Body() changes: UpdateAttributeDto,
   ) {
-    return this.attributesService.update(+id, updateAttributeDto);
+    console.log('id', id, 'changes', changes);
+    return this.attributesService.update(id, changes);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attributesService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: UUID) {
+    return this.attributesService.remove(id);
   }
 }
