@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { ApiHideProperty } from '@nestjs/swagger';
+import { ApiHideProperty, OmitType } from '@nestjs/swagger';
 import {
   IsEmail,
   IsEmpty,
@@ -97,6 +97,7 @@ export class CreateUserDto {
    * Tipo de cliente
    * @example Retail
    */
+  @IsOptional()
   @IsEnum(CustomerType, {
     message: 'CustomerType debe ser un valor válido de CustomerType',
   })
@@ -131,4 +132,8 @@ export class CreateUserDto {
   image?: string;
 }
 
+export class CreateAdminUserDto extends OmitType(CreateUserDto, [
+  'password',
+  'confPassword',
+]) {}
 export class UpdateUserDto extends PartialType(CreateUserDto) {}

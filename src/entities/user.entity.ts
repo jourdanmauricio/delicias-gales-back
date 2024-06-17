@@ -55,7 +55,7 @@ export class User {
     enum: CustomerType,
     nullable: true,
   })
-  customerType: CustomerType;
+  customerType?: CustomerType;
 
   @CreateDateColumn({
     name: 'register_date',

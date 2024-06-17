@@ -10,7 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto, UpdateUserDto } from './users.dto';
+import { CreateAdminUserDto, UpdateUserDto } from './users.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UUID } from 'crypto';
 import { AuthGuard } from 'src/guards/auth.guard';
@@ -49,8 +49,8 @@ export class UsersController {
   @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(@Body() data: CreateAdminUserDto) {
+    return this.usersService.createAdmin(data);
   }
 
   @UseGuards(UserAuthGuard)

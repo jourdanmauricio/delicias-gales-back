@@ -1,9 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from './users.dto';
+import { CreateAdminUserDto, CreateUserDto, UpdateUserDto } from './users.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { UUID } from 'crypto';
+import * as bcrypt from 'bcrypt';
 // import { UserAuthGuard } from 'src/guards/userAuth.guard';
 
 @Injectable()
@@ -13,8 +14,9 @@ export class UsersService {
     private usersRepository: Repository<User>,
   ) {}
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const users = await this.usersRepository.find();
+    return users;
   }
 
   async findByEmail(email: string) {
@@ -31,6 +33,16 @@ export class UsersService {
 
   async create(data: CreateUserDto) {
     const newUser = this.usersRepository.create(data);
+    return await this.usersRepository.save(newUser);
+  }
+
+  async createAdmin(data: CreateAdminUserDto) {
+    const password = process.env.ADMIN_PASSWORD;
+    const hashPass = await bcrypt.hash(password, 10);
+    const newUser = this.usersRepository.create({
+      ...data,
+      password: hashPass,
+    });
     return await this.usersRepository.save(newUser);
   }
 
