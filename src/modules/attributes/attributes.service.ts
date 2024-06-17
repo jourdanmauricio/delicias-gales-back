@@ -1,8 +1,13 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateAttributeDto, UpdateAttributeDto } from './attribute.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Attribute } from 'src/entities/attribute.entity';
 import { Repository } from 'typeorm';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class AttributesService {
@@ -21,8 +26,10 @@ export class AttributesService {
     return attributes;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} attribute`;
+  async findOne(id: UUID) {
+    const attribute = await this.attributeRepository.findOneBy({ id });
+    if (!attribute) throw new NotFoundException('Atributo no encontrado');
+    return attribute;
   }
 
   async create(data: CreateAttributeDto) {
@@ -33,11 +40,15 @@ export class AttributesService {
     return await this.attributeRepository.save(newAttibuto);
   }
 
-  update(id: number, changes: UpdateAttributeDto) {
-    return `This action updates a #${id} attribute ${changes}`;
+  async update(id: UUID, changes: UpdateAttributeDto) {
+    const attribute = await this.findOne(id);
+    this.attributeRepository.merge(attribute, changes);
+    return this.attributeRepository.save(attribute);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} attribute`;
+  async remove(id: UUID) {
+    await this.findOne(id);
+    await this.attributeRepository.delete(id);
+    return { id };
   }
 }

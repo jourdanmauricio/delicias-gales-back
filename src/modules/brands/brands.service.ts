@@ -57,7 +57,9 @@ export class BrandService {
     return this.brandRepository.save(brand);
   }
 
-  remove(id: UUID) {
-    return this.brandRepository.delete(id);
+  async remove(id: UUID) {
+    await this.findOne(id);
+    await this.brandRepository.delete(id);
+    return { id };
   }
 }

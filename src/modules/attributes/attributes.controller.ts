@@ -6,9 +6,12 @@ import {
   Param,
   Delete,
   Put,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { AttributesService } from './attributes.service';
 import { CreateAttributeDto, UpdateAttributeDto } from './attribute.dto';
+import { UUID } from 'crypto';
+import { ApiOperation } from '@nestjs/swagger';
 
 @Controller('attributes')
 export class AttributesController {
@@ -20,8 +23,8 @@ export class AttributesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.attributesService.findOne(+id);
+  findOne(@Param('id', ParseUUIDPipe) id: UUID) {
+    return this.attributesService.findOne(id);
   }
 
   @Post()
@@ -30,15 +33,17 @@ export class AttributesController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Modifica un atributo por id' })
   update(
-    @Param('id') id: string,
-    @Body() updateAttributeDto: UpdateAttributeDto,
+    @Param('id', ParseUUIDPipe) id: UUID,
+    @Body() changes: UpdateAttributeDto,
   ) {
-    return this.attributesService.update(+id, updateAttributeDto);
+    console.log('id', id, 'changes', changes);
+    return this.attributesService.update(id, changes);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.attributesService.remove(+id);
+  remove(@Param('id', ParseUUIDPipe) id: UUID) {
+    return this.attributesService.remove(id);
   }
 }
