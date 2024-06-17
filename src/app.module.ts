@@ -18,6 +18,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { Category } from './entities/category.entity';
 import { ProductsModule } from './modules/products/products.module';
 import { BrandsModule } from './modules/brands/brands.module';
+import { AttributesModule } from './modules/attributes/attributes.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { BrandsModule } from './modules/brands/brands.module';
     CategoriesModule,
     ProductsModule,
     BrandsModule,
+    AttributesModule,
   ],
   controllers: [AppController],
   providers: [AppService, SeederService],

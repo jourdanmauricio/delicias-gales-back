@@ -16,6 +16,7 @@ import { ProductImages } from './productImage';
 import { ProductInventories } from './productInventory';
 import { Brand } from './brand.entity';
 import { ProductStatus } from 'src/models/productStatus.enum';
+import { ProductAttribute } from './productAttributes.entity';
 
 @Entity('products')
 export class Product {
@@ -101,4 +102,7 @@ export class Product {
 
   @OneToMany(() => ProductInventories, (inventory) => inventory.product)
   inventories: ProductImages[];
+
+  @OneToMany(() => ProductAttribute, (prodAttr) => prodAttr.attribute)
+  attributes: ProductAttribute[];
 }

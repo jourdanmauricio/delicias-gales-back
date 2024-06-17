@@ -49,15 +49,15 @@ export class UsersService {
   async update(id: UUID, changes: UpdateUserDto) {
     const user = await this.findOne(id);
 
-    // if (changes.password) {
-    //   const hashedPass = await bcrypt.hash(changes.password, 10);
-    //   changes = { ...changes, password: hashedPass };
-    //   if (!user.activationDate)
-    //     changes = { ...changes, activationDate: new Date() };
-    // }
+    if (changes.password) {
+      const hashedPass = await bcrypt.hash(changes.password, 10);
+      changes = { ...changes, password: hashedPass };
+      // if (!user.activationDate)
+      //   changes = { ...changes, activationDate: new Date() };
+    }
 
     const updUser = this.usersRepository.merge(user, changes);
-    return this.usersRepository.save(updUser);
+    return await this.usersRepository.save(updUser);
   }
 
   // remove(id: UUID) {

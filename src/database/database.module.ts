@@ -10,6 +10,8 @@ import { Category } from 'src/entities/category.entity';
 import { Product } from 'src/entities/product.entity';
 import { ProductImages } from 'src/entities/productImage';
 import { ProductInventories } from 'src/entities/productInventory';
+import { ProductAttribute } from 'src/entities/productAttributes.entity';
+import { Attribute } from 'src/entities/attribute.entity';
 
 const API_KEY = '12345678';
 const API_KEY_PROD = 'PROD12345678';
@@ -35,15 +37,17 @@ const API_KEY_PROD = 'PROD12345678';
             User,
             Category,
             Order,
+            Attribute,
             Product,
             ProductImages,
             ProductInventories,
+            ProductAttribute,
           ],
           synchronize: true,
           autoLoadEntities: true,
           logging: ['error'],
           // logging: true,
-          // dropSchema: true,
+          dropSchema: true,
         };
       },
     }),
