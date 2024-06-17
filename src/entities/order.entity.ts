@@ -1,8 +1,15 @@
 import { OrderStatus } from 'src/models/orderStatus.enum';
 import { PaymentMethod } from 'src/models/paymentMethods.enum';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from './user.entity';
 import { v4 as uuid } from 'uuid';
+import { OrderDetail } from './orderDetail.entity';
 
 @Entity('orders')
 export class Order {
@@ -42,4 +49,7 @@ export class Order {
 
   @ManyToOne(() => User, (user) => user.orders)
   user: User;
+
+  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
+  orderDetails: OrderDetail[];
 }
