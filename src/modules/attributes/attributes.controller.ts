@@ -3,9 +3,9 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
+  Put,
 } from '@nestjs/common';
 import { AttributesService } from './attributes.service';
 import { CreateAttributeDto, UpdateAttributeDto } from './attribute.dto';
@@ -13,11 +13,6 @@ import { CreateAttributeDto, UpdateAttributeDto } from './attribute.dto';
 @Controller('attributes')
 export class AttributesController {
   constructor(private readonly attributesService: AttributesService) {}
-
-  @Post()
-  create(@Body() createAttributeDto: CreateAttributeDto) {
-    return this.attributesService.create(createAttributeDto);
-  }
 
   @Get()
   findAll() {
@@ -29,7 +24,12 @@ export class AttributesController {
     return this.attributesService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Post()
+  create(@Body() data: CreateAttributeDto) {
+    return this.attributesService.create(data);
+  }
+
+  @Put(':id')
   update(
     @Param('id') id: string,
     @Body() updateAttributeDto: UpdateAttributeDto,
