@@ -20,10 +20,14 @@ export class OrderDetail {
   })
   price: number;
 
-  @Column()
+  @Column({ nullable: true })
   discount: number;
 
-  @Column()
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+  })
   subtotal: number;
 
   @ManyToOne(() => Order, (order) => order.orderDetails)

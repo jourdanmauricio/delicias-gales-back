@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import { CustomerType } from 'src/models/customerType.enum';
 import { Role } from 'src/models/roles.enum';
 import { UserStatus } from 'src/models/userStatus.enum';
+import { v4 as uuid } from 'uuid';
 import {
   Column,
   CreateDateColumn,
@@ -16,7 +17,7 @@ import { Order } from './order.entity';
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string = uuid();
 
   @Column({ type: 'varchar', length: 250 })
   name: string;
@@ -72,6 +73,21 @@ export class User {
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   image: string;
+
+  @Column({ type: 'boolean', nullable: true })
+  billing: boolean;
+
+  @Column({ name: 'seller_id', type: 'uuid', nullable: true })
+  sellerId: string = uuid();
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  ruta: string;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  lat: string;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  lng: string;
 
   @Exclude()
   @ApiHideProperty()

@@ -5,6 +5,7 @@ import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { UUID } from 'crypto';
 import * as bcrypt from 'bcrypt';
+import { Role } from 'src/models/roles.enum';
 // import { UserAuthGuard } from 'src/guards/userAuth.guard';
 
 @Injectable()
@@ -17,6 +18,11 @@ export class UsersService {
   async findAll() {
     const users = await this.usersRepository.find();
     return users;
+  }
+
+  async findByRole(role: Role) {
+    const user = await this.usersRepository.findOne({ where: { role } });
+    return user.id;
   }
 
   async findByEmail(email: string) {
@@ -36,12 +42,13 @@ export class UsersService {
     return await this.usersRepository.save(newUser);
   }
 
-  async createAdmin(data: CreateAdminUserDto) {
+  async createAdmin(id: UUID, data: CreateAdminUserDto) {
     const password = process.env.ADMIN_PASSWORD;
     const hashPass = await bcrypt.hash(password, 10);
     const newUser = this.usersRepository.create({
       ...data,
       password: hashPass,
+      sellerId: id,
     });
     return await this.usersRepository.save(newUser);
   }

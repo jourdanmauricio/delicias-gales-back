@@ -7,6 +7,7 @@ import { UsersService } from '../users/users.service';
 import { NodemailerService } from '../nodemailer/nodemailer.service';
 import { CreateUserDto } from '../users/users.dto';
 import { LoginUserDto, RecoveryPassDto } from './auth.dto';
+import { Role } from 'src/models/roles.enum';
 
 @Injectable()
 export class AuthService {
@@ -41,11 +42,17 @@ export class AuthService {
     const dbUser = await this.usersService.findByEmail(user.email);
     if (dbUser) throw new BadRequestException('El email se encuentra en uso');
 
+    const adminId = await this.usersService.findByRole(Role.ADMIN);
+
     const hashedPass = await bcrypt.hash(user.password, 10);
     if (!hashedPass)
       throw new BadRequestException('Password could not be hashed');
 
-    return this.usersService.create({ ...user, password: hashedPass });
+    return this.usersService.create({
+      ...user,
+      password: hashedPass,
+      sellerId: adminId,
+    });
   }
 
   async forgotPassword(email: string) {
