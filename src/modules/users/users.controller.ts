@@ -49,8 +49,9 @@ export class UsersController {
   @Roles(Role.ADMIN)
   @UseGuards(RolesGuard)
   @Post()
-  create(@Body() data: CreateAdminUserDto) {
-    return this.usersService.createAdmin(data);
+  create(@Req() request, @Body() data: CreateAdminUserDto) {
+    const user = request.user;
+    return this.usersService.createAdmin(user.id, data);
   }
 
   @UseGuards(UserAuthGuard)

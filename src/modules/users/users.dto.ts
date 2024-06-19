@@ -1,5 +1,6 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { ApiHideProperty, OmitType } from '@nestjs/swagger';
+
 import {
   IsEmail,
   IsEmpty,
@@ -130,6 +131,8 @@ export class CreateUserDto {
   @IsUrl({}, { message: 'La imagen debe ser una URL válida' })
   @IsOptional()
   image?: string;
+
+  sellerId?: string;
 }
 
 export class CreateAdminUserDto extends OmitType(CreateUserDto, [
