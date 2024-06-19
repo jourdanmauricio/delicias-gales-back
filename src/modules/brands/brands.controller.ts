@@ -41,9 +41,9 @@ export class BrandsController {
   @ApiOperation({ summary: 'Modifica una marca por id' })
   update(
     @Param('id', ParseUUIDPipe) id: UUID,
-    @Body() payload: UpdateBrandDto,
+    @Body() changes: UpdateBrandDto,
   ) {
-    return this.brandService.update(id, payload);
+    return this.brandService.update(id, changes);
   }
 
   @Delete(':id')

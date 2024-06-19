@@ -18,8 +18,8 @@ export class Attribute {
   @Column({ type: 'varchar', length: 50, unique: true })
   name: string;
 
-  @Column({ type: 'varchar', name: 'unit_default', length: 20 })
-  unitDefault: string;
+  @Column({ type: 'varchar', name: 'unit_default', length: 20, nullable: true })
+  unitDefault?: string;
 
   @Exclude()
   @ApiHideProperty()

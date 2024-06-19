@@ -12,6 +12,7 @@ import { ProductImages } from 'src/entities/productImage';
 import { ProductInventories } from 'src/entities/productInventory';
 import { ProductAttribute } from 'src/entities/productAttributes.entity';
 import { Attribute } from 'src/entities/attribute.entity';
+import { OrderDetail } from 'src/entities/orderDetail.entity';
 
 const API_KEY = '12345678';
 const API_KEY_PROD = 'PROD12345678';
@@ -35,10 +36,11 @@ const API_KEY_PROD = 'PROD12345678';
           // y dropschema
           entities: [
             User,
+            Attribute,
             Category,
             Order,
-            Attribute,
             Product,
+            OrderDetail,
             ProductImages,
             ProductInventories,
             ProductAttribute,
@@ -47,7 +49,7 @@ const API_KEY_PROD = 'PROD12345678';
           autoLoadEntities: true,
           logging: ['error'],
           // logging: true,
-          dropSchema: true,
+          // dropSchema: true,
         };
       },
     }),
