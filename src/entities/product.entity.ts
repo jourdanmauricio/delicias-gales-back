@@ -35,33 +35,36 @@ export class Product {
 
   @Column({
     type: 'decimal',
+    name: 'original_price',
     precision: 10,
     scale: 2,
   })
-  original_price: number;
+  originalPrice: number;
 
   @Column({
     type: 'decimal',
+    name: 'wholesale_price',
     precision: 10,
     scale: 2,
   })
-  wholesale_price: number;
+  wholesalePrice: number;
 
   @Column({
     type: 'decimal',
+    name: 'retail_price',
     precision: 10,
     scale: 2,
   })
-  retail_price: number;
+  retailPrice: number;
 
   @Column({ type: 'int' })
   stock: number;
 
-  @Column({ type: 'int' })
-  min_quantity: number;
+  @Column({ type: 'int', name: 'min_quantity' })
+  minQuantity: number;
 
-  @Column({ type: 'int', nullable: true })
-  max_quantity: number;
+  @Column({ type: 'int', name: 'max_quantity', nullable: true })
+  maxQuantity: number;
 
   @Column({ type: 'enum', enum: ProductStatus, default: ProductStatus.ACTIVE })
   status: ProductStatus;
