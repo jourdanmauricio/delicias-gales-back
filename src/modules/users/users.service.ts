@@ -21,8 +21,8 @@ export class UsersService {
   }
 
   async findByRole(role: Role) {
-    const user = await this.usersRepository.findOne({ where: { role } });
-    return user.id;
+    const user = await this.usersRepository.find({ where: { role } });
+    return user;
   }
 
   async findByEmail(email: string) {

@@ -2,12 +2,14 @@ import { PartialType } from '@nestjs/mapped-types';
 import { ApiHideProperty, OmitType } from '@nestjs/swagger';
 
 import {
+  IsBoolean,
   IsEmail,
   IsEmpty,
   IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
   IsUrl,
   Matches,
   MaxLength,
@@ -132,6 +134,7 @@ export class CreateUserDto {
   @IsOptional()
   image?: string;
 
+  @IsEmpty()
   sellerId?: string;
 }
 
@@ -139,4 +142,26 @@ export class CreateAdminUserDto extends OmitType(CreateUserDto, [
   'password',
   'confPassword',
 ]) {}
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
+export class UpdateUserDto extends OmitType(PartialType(CreateUserDto), [
+  'sellerId',
+]) {
+  @IsBoolean()
+  @IsOptional()
+  billing?: boolean;
+
+  @IsOptional()
+  @IsUUID()
+  sellerId?: string;
+
+  @IsString()
+  @IsOptional()
+  ruta?: string;
+
+  @IsString()
+  @IsOptional()
+  lat?: string;
+
+  @IsString()
+  @IsOptional()
+  lng?: string;
+}

@@ -51,7 +51,7 @@ export class AuthService {
     return this.usersService.create({
       ...user,
       password: hashedPass,
-      sellerId: adminId,
+      sellerId: adminId[0].id,
     });
   }
 
