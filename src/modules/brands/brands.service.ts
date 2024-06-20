@@ -22,7 +22,7 @@ export class BrandService {
       .createQueryBuilder('brand')
       .leftJoin('brand.products', 'product')
       .groupBy('brand.id')
-      .select(['brand.id, brand.name, bran.image'])
+      .select(['brand.id, brand.name, brand.image'])
       .addSelect('COUNT(product.id)', 'productCount')
       .getRawMany();
     return brands;
