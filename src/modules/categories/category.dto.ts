@@ -2,6 +2,10 @@ import { IsString, IsNotEmpty, IsUrl, IsOptional } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateCategoryDto {
+  /**
+   * El nombre debe ser una cadena de texto no nula
+   * @example Jabones
+   */
   @ApiProperty()
   @IsString()
   @IsNotEmpty()

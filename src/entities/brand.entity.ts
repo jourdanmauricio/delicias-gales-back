@@ -18,6 +18,17 @@ export class Brand {
   @Column({ type: 'varchar', length: 255, unique: true })
   name: string;
 
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  description: string;
+
+  @Column({
+    type: 'varchar',
+    length: 255,
+    default:
+      'https://res.cloudinary.com/dn7npxeof/image/upload/v1718440744/Henry/delicias-gales/photo-off_vrckds.svg',
+  })
+  image: string;
+
   @Exclude()
   @ApiHideProperty()
   @CreateDateColumn({
