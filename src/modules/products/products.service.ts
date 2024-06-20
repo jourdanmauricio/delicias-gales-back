@@ -27,8 +27,9 @@ export class ProductsService {
     return newProduct;
   }
 
-  findAll() {
-    return `This action returns all products`;
+  async findAll() {
+    const products = await this.productRepository.find();
+    return products;
   }
 
   async findOne(id: UUID) {
