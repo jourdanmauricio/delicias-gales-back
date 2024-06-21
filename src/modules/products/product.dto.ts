@@ -1,6 +1,7 @@
 import { PartialType } from '@nestjs/swagger';
 import {
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -11,6 +12,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { UUID } from 'crypto';
+import { ProductStatus } from 'src/models/productStatus.enum';
 
 export class CreateProductDto {
   /**
@@ -41,13 +43,12 @@ export class CreateProductDto {
   readonly sku: string;
 
   /**
-   * El precio debe ser un número positivo
-   * @example 100
+   * El estado-.--
+   * @example active
    */
-  @IsNumber()
-  @IsPositive()
   @IsNotEmpty()
-  readonly original_price: number;
+  @IsEnum(ProductStatus)
+  readonly status: ProductStatus;
 
   /**
    * El precio debe ser un número positivo
@@ -56,7 +57,7 @@ export class CreateProductDto {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  readonly wholesale_price: number;
+  readonly originalPrice: number;
 
   /**
    * El precio debe ser un número positivo
@@ -65,7 +66,16 @@ export class CreateProductDto {
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()
-  readonly retail_price: number;
+  readonly wholesalePrice: number;
+
+  /**
+   * El precio debe ser un número positivo
+   * @example 100
+   */
+  @IsNumber()
+  @IsPositive()
+  @IsNotEmpty()
+  readonly retailPrice: number;
 
   /**
    * El stock debe ser un número
@@ -81,7 +91,7 @@ export class CreateProductDto {
    */
   @IsNotEmpty()
   @IsNumber()
-  readonly min_quantity: number;
+  readonly minQuantity: number;
 
   /**
    * El cantidad máxima debe ser un número positivo
@@ -89,7 +99,7 @@ export class CreateProductDto {
    */
   @IsOptional()
   @IsNumber()
-  readonly max_quantity: number;
+  readonly maxQuantity: number;
 
   /**
    * La imagen debe ser una url y es opcional

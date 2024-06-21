@@ -9,6 +9,7 @@ async function bootstrap() {
   app.enableCors();
   app.use(loggerGlobal);
 
+  // Interceptor para serializar
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   app.useGlobalPipes(

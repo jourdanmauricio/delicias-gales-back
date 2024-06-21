@@ -33,7 +33,10 @@ export class ProductsService {
   }
 
   async findOne(id: UUID) {
-    const productDb = await this.productRepository.findOneBy({ id });
+    const productDb = await this.productRepository.findOne({
+      where: { id },
+      relations: ['categories'],
+    });
     if (!productDb) throw new BadRequestException('Producto inexistente');
     return productDb;
   }

@@ -1,5 +1,5 @@
 import { ApiHideProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -98,8 +98,22 @@ export class Product {
   @JoinColumn({ name: 'brand_id' })
   brand: Brand;
 
+  @Exclude()
   @ManyToMany(() => Category, (category) => category.products)
   categories: Category[];
+
+  @Expose()
+  get prodCategories() {
+    if (this.categories) {
+      return this.categories
+        .filter((category) => !!category)
+        .map((category) => ({
+          id: category.id,
+          name: category.name,
+        }));
+    }
+    return [];
+  }
 
   @OneToMany(() => ProductImages, (image) => image.product)
   images: ProductImages[];
