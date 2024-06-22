@@ -23,6 +23,21 @@ export class ProductsService {
     if (productDB) throw new BadRequestException('El producto ya existe');
 
     const product = this.productRepository.create(data);
+
+    if (data.brandId) {
+      const brand = await this.brandRepository.findOne({
+        where: { id: data.brandId },
+      });
+      product.brand = brand;
+    }
+
+    if (data.categoriesIds) {
+      const categories = await this.categoryRepository.findBy({
+        id: In(data.categoriesIds),
+      });
+      product.categories = categories;
+    }
+
     const newProduct = await this.productRepository.save(product);
     return newProduct;
   }
@@ -35,7 +50,7 @@ export class ProductsService {
   async findOne(id: UUID) {
     const productDb = await this.productRepository.findOne({
       where: { id },
-      relations: ['categories'],
+      relations: ['categories', 'brand'],
     });
     if (!productDb) throw new BadRequestException('Producto inexistente');
     return productDb;

@@ -94,23 +94,29 @@ export class Product {
   })
   updatedAt: Date;
 
+  @Exclude()
   @ManyToOne(() => Brand, (brand) => brand.products)
   @JoinColumn({ name: 'brand_id' })
   brand: Brand;
+
+  @Expose()
+  get brandId() {
+    if (this.brand) {
+      return this.brand.id;
+    }
+    return null;
+  }
 
   @Exclude()
   @ManyToMany(() => Category, (category) => category.products)
   categories: Category[];
 
   @Expose()
-  get prodCategories() {
+  get categoriesIds() {
     if (this.categories) {
       return this.categories
         .filter((category) => !!category)
-        .map((category) => ({
-          id: category.id,
-          name: category.name,
-        }));
+        .map((category) => category.id);
     }
     return [];
   }
