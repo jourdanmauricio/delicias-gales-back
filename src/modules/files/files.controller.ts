@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Controller,
   FileTypeValidator,
   InternalServerErrorException,
@@ -8,6 +9,7 @@ import {
   //ParseUUIDPipe,
   Post,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -17,7 +19,10 @@ import { FilesService } from './files.service';
 // import { Roles } from 'src/decorators/roles.decorator';
 // import { Role } from 'src/models/roles.enum';
 // import { RolesGuard } from 'src/guards/roles.guard';
-import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  FileFieldsInterceptor,
+  FileInterceptor,
+} from '@nestjs/platform-express';
 //import { UUID } from 'crypto';
 
 @ApiBearerAuth()
@@ -68,46 +73,76 @@ export class FilesController {
     return image;
   }
 
-  // @Put('upload-image-coworking/:id')
-  // @ApiConsumes('multipart/form-data')
-  // @ApiBody({
-  //   schema: {
-  //     type: 'object',
-  //     properties: {
-  //       file: {
-  //         type: 'string',
-  //         format: 'binary',
-  //       },
-  //     },
-  //   },
-  // })
+  @Post('upload-files')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        files: {
+          type: 'array',
+          items: {
+            type: 'string',
+            format: 'binary',
+          },
+        },
+      },
+    },
+  })
+  @UseInterceptors(
+    FileFieldsInterceptor([{ name: 'files', maxCount: 5 }], {
+      limits: { fileSize: 300000 },
+    }),
+  )
+  // @UseInterceptors(
+  //   FileFieldsInterceptor('files', { limits: { fileSize: 300000 } }),
+  // )
+  async uploadFiles(
+    @UploadedFiles(
+      new ParseFilePipe({
+        validators: [
+          // new MaxFileSizeValidator({
+          //   maxSize: 300000,
+          //   message: `El archivo debe ser menor a 300kb`,
+          // }),
+          // new FileTypeValidator({
+          //   fileType: /(jpg|jpeg|png|webp)$/,
+          // }),
+        ],
+      }),
+    )
+    files: {
+      files: Express.Multer.File[];
+    },
+  ) {
+    const maxFileSize = 300000;
+    const allowedFileTypes = /(jpg|jpeg|png|webp)$/;
 
-  // @Roles(Role.ADMIN_COWORKING)
-  // @UseGuards(RolesGuard, UserAuthCoworkingGuard)
-  // @UseInterceptors(FileInterceptor('image', { limits: { files: 1 } }))
-  // async uploadImageCoworking(
-  //   @Param('id', ParseUUIDPipe) id: UUID,
-  //   @UploadedFile(
-  //     new ParseFilePipe({
-  //       validators: [
-  //         new MaxFileSizeValidator({
-  //           maxSize: 300000,
-  //           message: `El archivo debe ser menor a 300kb`,
-  //         }),
-  //         new FileTypeValidator({
-  //           fileType: /(jpg|jpeg|png|webp)$/,
-  //         }),
-  //       ],
-  //     }),
-  //   )
-  //   file: Express.Multer.File,
-  // ) {
-  //   // Upload Image
-  //   const image = await this.filesService.uploadImage(file);
-  //   if (!image)
-  //     throw new InternalServerErrorException('Error cargando la imagen');
+    for (const file of files.files) {
+      // Validar tamaño de archivo
+      if (file.size > maxFileSize) {
+        throw new BadRequestException(
+          `El archivo ${file.originalname} debe ser menor a 300kb`,
+        );
+      }
 
-  //   // Update Coworking
-  //   return await this.coworkingsService.addImage(id, image.secure_url);
-  // }
+      // Validar tipo de archivo
+      if (!allowedFileTypes.test(file.mimetype)) {
+        throw new BadRequestException(
+          `El archivo ${file.originalname} debe ser de tipo jpg, jpeg, png o webp`,
+        );
+      }
+    }
+
+    // Upload Images
+    const uploadedImages = [];
+    for (const file of files.files) {
+      const image = await this.filesService.uploadImage(file);
+      if (!image)
+        throw new InternalServerErrorException('Error cargando la imagen');
+      uploadedImages.push(image);
+    }
+
+    return uploadedImages;
+  }
 }

@@ -8,5 +8,6 @@ import { Attribute } from 'src/entities/attribute.entity';
   imports: [TypeOrmModule.forFeature([Attribute])],
   controllers: [AttributesController],
   providers: [AttributesService],
+  exports: [AttributesService],
 })
 export class AttributesModule {}

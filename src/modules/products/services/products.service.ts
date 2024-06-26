@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateProductDto, UpdateProductDto } from './product.dto';
+import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
 import { UUID } from 'crypto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/entities/product.entity';
@@ -50,7 +50,13 @@ export class ProductsService {
   async findOne(id: UUID) {
     const productDb = await this.productRepository.findOne({
       where: { id },
-      relations: ['categories', 'brand'],
+      relations: [
+        'categories',
+        'brand',
+        'attributes',
+        'attributes.attribute',
+        'images',
+      ],
     });
     if (!productDb) throw new BadRequestException('Producto inexistente');
     return productDb;

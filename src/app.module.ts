@@ -19,6 +19,7 @@ import { Category } from './entities/category.entity';
 import { ProductsModule } from './modules/products/products.module';
 import { BrandsModule } from './modules/brands/brands.module';
 import { AttributesModule } from './modules/attributes/attributes.module';
+import { ProductsAttributeController } from './modules/products/controllers/productAttribute.controller';
 
 @Module({
   imports: [
@@ -49,7 +50,7 @@ import { AttributesModule } from './modules/attributes/attributes.module';
     BrandsModule,
     AttributesModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ProductsAttributeController],
   providers: [AppService, SeederService],
 })
 export class AppModule {
