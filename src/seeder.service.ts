@@ -10,10 +10,12 @@ import {
   loadCategories,
   loadBrands,
   loadProducts,
+  loadAttributes,
 } from './utils/loadData';
 import { CategoriesService } from './modules/categories/categories.service';
 import { BrandService } from './modules/brands/brands.service';
-import { ProductsService } from './modules/products/products.service';
+import { ProductsService } from './modules/products/services/products.service';
+import { AttributesService } from './modules/attributes/attributes.service';
 
 @Injectable()
 export class SeederService {
@@ -22,6 +24,7 @@ export class SeederService {
     private readonly usersRepository: Repository<User>,
     private readonly categoryService: CategoriesService,
     private readonly brandService: BrandService,
+    private readonly attributeService: AttributesService,
     private readonly productsService: ProductsService,
   ) {}
 
@@ -39,6 +42,7 @@ export class SeederService {
     // await this.preloadEmployeeUser();
     await this.preloadCategories();
     await this.preloadBrands();
+    await this.preloadAttributes();
     await this.preloadProducts();
   }
 
@@ -78,6 +82,14 @@ export class SeederService {
     const brands = loadBrands();
     for await (const brand of brands) {
       await this.brandService.create(brand);
+    }
+    return true;
+  }
+
+  async preloadAttributes() {
+    const attributes = loadAttributes();
+    for await (const attribute of attributes) {
+      await this.attributeService.create(attribute);
     }
     return true;
   }

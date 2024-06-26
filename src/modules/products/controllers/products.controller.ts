@@ -8,8 +8,8 @@ import {
   Delete,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { CreateProductDto, UpdateProductDto } from './product.dto';
+import { ProductsService } from '../services/products.service';
+import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
 import { UUID } from 'crypto';
 
 @Controller('products')

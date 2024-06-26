@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Peso",
+    "unitDefault": "gr"
+  },
+  {
+    "name": "Calorías",
+    "unitDefault": "cal"
+  }
+]

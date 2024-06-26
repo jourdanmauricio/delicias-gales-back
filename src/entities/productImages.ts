@@ -16,8 +16,8 @@ export class ProductImages {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar' })
-  secure_url: string;
+  @Column({ type: 'varchar', name: 'secure_url' })
+  secureUrl: string;
 
   @Exclude()
   @ApiHideProperty()
