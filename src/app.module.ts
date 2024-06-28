@@ -19,6 +19,7 @@ import { Category } from './entities/category.entity';
 import { ProductsModule } from './modules/products/products.module';
 import { BrandsModule } from './modules/brands/brands.module';
 import { AttributesModule } from './modules/attributes/attributes.module';
+import { OrdersModule } from './modules/orders/orders.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { AttributesModule } from './modules/attributes/attributes.module';
     DatabseModule,
     UsersModule,
     AuthModule,
+    OrdersModule,
     FilesModule,
     JwtModule.register({
       global: true,

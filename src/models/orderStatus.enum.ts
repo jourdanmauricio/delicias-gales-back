@@ -1,5 +1,6 @@
 export enum OrderStatus {
   BLOCKED = 'blocked',
   ACTIVE = 'active',
-  INACTIVE = 'inactive',
+  CANCELLED = 'cancelled',
+  DELIVERED = 'delivered',
 }
