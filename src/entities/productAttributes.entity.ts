@@ -7,21 +7,27 @@ import {
 } from 'typeorm';
 import { Attribute } from './attribute.entity';
 import { Product } from './product.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity({ name: 'product_attributes' })
 export class ProductAttribute {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', length: 50 })
   value: string;
 
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  unit: string;
+
+  @Exclude()
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',
   })
   createAt: Date;
 
+  @Exclude()
   @CreateDateColumn({
     type: 'timestamptz',
     default: () => 'CURRENT_TIMESTAMP',

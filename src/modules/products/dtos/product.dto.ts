@@ -12,6 +12,7 @@ import {
   MaxLength,
 } from 'class-validator';
 import { UUID } from 'crypto';
+//import { ProductImages } from 'src/entities/productImages';
 import { ProductStatus } from 'src/models/productStatus.enum';
 
 export class CreateProductDto {
@@ -128,6 +129,14 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsUUID()
   readonly brandId: string;
+
+  // /**
+  //  * Imágenes del producto
+  //  * @example [{secure_url: 'https://res.cloudinary.com/dn7npxeof/image/upload/v1712238917/Henry/PM4-ecommerce/Sin_imagen_disponible_zxruow.webp'}]
+  //  */
+  // @IsArray()
+  // @IsNotEmpty()
+  // readonly images: ProductImages[];
 }
 
 export class UpdateProductDto extends PartialType(CreateProductDto) {}

@@ -12,7 +12,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Category } from './category.entity';
-import { ProductImages } from './productImage';
+import { ProductImages } from './productImages';
 import { ProductInventories } from './productInventory';
 import { Brand } from './brand.entity';
 import { ProductStatus } from 'src/models/productStatus.enum';
@@ -69,7 +69,13 @@ export class Product {
   @Column({ type: 'enum', enum: ProductStatus, default: ProductStatus.ACTIVE })
   status: ProductStatus;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({
+    type: 'varchar',
+    length: 255,
+    // default: process.env.CLOUDINARY_DEFAULT_IMAGE,
+    default:
+      'https://res.cloudinary.com/dn7npxeof/image/upload/v1718440744/Henry/delicias-gales/photo-off_vrckds.svg',
+  })
   thumbnail: string;
 
   @Column({ type: 'text', nullable: true })
@@ -124,11 +130,36 @@ export class Product {
   @OneToMany(() => ProductImages, (image) => image.product)
   images: ProductImages[];
 
+  // @Expose()
+  // get prodImages() {
+  //   if (this.images) {
+  //     return this.images.filter((image) => !!image);
+  //   }
+  // }
+
   @OneToMany(() => ProductInventories, (inventory) => inventory.product)
   inventories: ProductImages[];
 
-  @OneToMany(() => ProductAttribute, (prodAttr) => prodAttr.attribute)
+  @Exclude()
+  @OneToMany(() => ProductAttribute, (prodAttr) => prodAttr.product)
   attributes: ProductAttribute[];
+
+  @Expose()
+  get prodAttributes() {
+    if (this.attributes) {
+      return this.attributes
+        .filter((attribute) => !!attribute)
+        .map((attribute) => ({
+          id: attribute.id,
+          attrId: attribute.attribute.id,
+          value: attribute.value,
+          name: attribute.attribute.name,
+          unit: attribute.unit,
+          unitDefault: attribute.attribute.unitDefault,
+        }));
+    }
+    return [];
+  }
 
   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.product)
   orderDetails: OrderDetail[];

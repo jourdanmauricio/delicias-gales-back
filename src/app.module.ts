@@ -20,6 +20,7 @@ import { ProductsModule } from './modules/products/products.module';
 import { BrandsModule } from './modules/brands/brands.module';
 import { AttributesModule } from './modules/attributes/attributes.module';
 import { OrdersModule } from './modules/orders/orders.module';
+import { ProductsAttributeController } from './modules/products/controllers/productAttribute.controller';
 
 @Module({
   imports: [
@@ -51,7 +52,7 @@ import { OrdersModule } from './modules/orders/orders.module';
     BrandsModule,
     AttributesModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, ProductsAttributeController],
   providers: [AppService, SeederService],
 })
 export class AppModule {

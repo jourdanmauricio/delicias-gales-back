@@ -8,7 +8,7 @@ import config from '../config';
 import { Order } from 'src/entities/order.entity';
 import { Category } from 'src/entities/category.entity';
 import { Product } from 'src/entities/product.entity';
-import { ProductImages } from 'src/entities/productImage';
+import { ProductImages } from 'src/entities/productImages';
 import { ProductInventories } from 'src/entities/productInventory';
 import { ProductAttribute } from 'src/entities/productAttributes.entity';
 import { Attribute } from 'src/entities/attribute.entity';
@@ -49,7 +49,7 @@ const API_KEY_PROD = 'PROD12345678';
           autoLoadEntities: true,
           logging: ['error'],
           // logging: true,
-          // dropSchema: true,
+          //dropSchema: true,
         };
       },
     }),

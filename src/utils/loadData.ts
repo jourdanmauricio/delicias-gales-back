@@ -18,6 +18,12 @@ export const loadBrands = () => {
   return parseData;
 };
 
+export const loadAttributes = () => {
+  const data = readFileSync('src/database/data/attributes.json', 'utf8');
+  const parseData = JSON.parse(data);
+  return parseData;
+};
+
 export const loadProducts = () => {
   const data = readFileSync('src/database/data/products.json', 'utf8');
   const parseData = JSON.parse(data);
