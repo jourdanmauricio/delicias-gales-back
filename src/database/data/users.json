@@ -12,5 +12,15 @@
     "email": "seller@gales.com",
     "identification": "12345678",
     "role": "seller"
+  },
+  {
+    "name": "Carlos Compra",
+    "phone": "311223335",
+    "email": "customer@gales.com",
+    "identification": "12345677",
+    "role": "customer",
+    "customerType": "retail",
+    "address": "Av Segurola 1520",
+    "billing": false
   }
 ]

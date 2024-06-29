@@ -1,10 +1,26 @@
 [
   {
     "name": "Peso",
-    "unitDefault": "gr"
+    "unitDefault": "Gr"
   },
   {
     "name": "Calorías",
-    "unitDefault": "cal"
+    "unitDefault": "Cal"
+  },
+  {
+    "name": "Proteínas",
+    "unitDefault": "Gr"
+  },
+  {
+    "name": "Carbohidratos",
+    "unitDefault": "Gr"
+  },
+  {
+    "name": "Sodio",
+    "unitDefault": "Mg"
+  },
+  {
+    "name": "Grasas Totales",
+    "unitDefault": "Gr"
   }
 ]
