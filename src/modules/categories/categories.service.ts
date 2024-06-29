@@ -33,13 +33,19 @@ export class CategoriesService {
   }
 
   async findOne(id: UUID) {
-    const category = await this.categoryRepository.findOneBy({ id });
+    const category = await this.categoryRepository.findOne({
+      where: { id },
+      relations: ['products'],
+    });
     if (!category) throw new BadRequestException('La categoría no existe');
     return category;
   }
 
   async findOneByName(name: string) {
-    const category = await this.categoryRepository.findOneBy({ name });
+    const category = await this.categoryRepository.findOne({
+      where: { name },
+      relations: ['products'],
+    });
     return category;
   }
 

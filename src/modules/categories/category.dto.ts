@@ -1,4 +1,10 @@
-import { IsString, IsNotEmpty, IsUrl, IsOptional } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsUrl,
+  IsOptional,
+  IsBoolean,
+} from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 
 export class CreateCategoryDto {
@@ -18,6 +24,14 @@ export class CreateCategoryDto {
   @IsUrl()
   @IsOptional()
   readonly image?: string;
+
+  /**
+   * El campo Show debe ser true o false. Por default es true. Determina si se debe mostrar la categoría
+   * @example false
+   */
+  @IsBoolean()
+  @IsOptional()
+  readonly show?: boolean;
 
   /**
    * La descripción de la categoría debe ser una cadena de texto no nula

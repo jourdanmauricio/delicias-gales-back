@@ -96,16 +96,20 @@ export class SeederService {
 
   async preloadProducts() {
     const products = loadProducts();
+
+    const categories = await this.categoryService.findAll();
+
     for await (const product of products) {
-      const category = await this.categoryService.findOneByName(
-        product.category,
+      const prodCategories = categories.filter((cat) =>
+        product.categories.includes(cat.name),
       );
+
       const brand = await this.brandService.findOneByName(product.brand);
 
       await this.productsService.create({
         ...product,
         brand: brand,
-        categories: [category],
+        categories: prodCategories,
       });
     }
     return true;

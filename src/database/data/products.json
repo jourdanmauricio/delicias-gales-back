@@ -12,7 +12,10 @@
     "status": "active",
     "description": "5 unidades. Peso aprox 400 gr",
     "brand": "Gales",
-    "catery": "Chorizos secos"
+    "categories": [
+      "Chorizos secos",
+      "Destacados"
+    ]
   },
   {
     "name": "Salchichón Ibérico",
@@ -27,7 +30,10 @@
     "status": "active",
     "description": "4 unidades. Peso aprox 350 gr",
     "brand": "Gales",
-    "catery": "Embutidos"
+    "categories": [
+      "Chorizos secos",
+      "Destacados"
+    ]
   },
   {
     "name": "Jamón Serrano",
@@ -42,7 +48,10 @@
     "status": "active",
     "description": "Pieza completa. Peso aprox 7 kg",
     "brand": "Gales",
-    "catery": "Jamones"
+    "categories": [
+      "Chorizos secos",
+      "Destacados"
+    ]
   },
   {
     "name": "Lomo Embuchado",
@@ -57,7 +66,9 @@
     "status": "active",
     "description": "2 unidades. Peso aprox 500 gr",
     "brand": "Gales",
-    "catery": "Embutidos"
+    "categories": [
+      "Chorizos secos"
+    ]
   },
   {
     "name": "Chistorra",
@@ -72,7 +83,9 @@
     "status": "active",
     "description": "6 unidades. Peso aprox 300 gr",
     "brand": "Gales",
-    "catery": "Chorizos frescos"
+    "categories": [
+      "Chorizos secos"
+    ]
   },
   {
     "name": "Jabon en Gel 800 gramos",
@@ -87,7 +100,9 @@
     "status": "active",
     "description": "Jabon en Gel. Presenación 800 gramos",
     "brand": "Clean",
-    "catery": "Jabones"
+    "categories": [
+      "Jabones"
+    ]
   },
   {
     "name": "Jabon en Gel 400 gramos",
@@ -102,7 +117,9 @@
     "status": "active",
     "description": "Jabon en Gel. Presenación 400 gramos",
     "brand": "Clean",
-    "catery": "Jabones"
+    "categories": [
+      "Jabones"
+    ]
   },
   {
     "name": "Jabon líquido 1 litro",
@@ -117,7 +134,9 @@
     "status": "active",
     "description": "Jabon líquido. Presenación 1 litro",
     "brand": "Clean",
-    "catery": "Jabones"
+    "categories": [
+      "Jabones"
+    ]
   },
   {
     "name": "Jabon líquido 500 cm3",
@@ -132,6 +151,9 @@
     "status": "active",
     "description": "Jabon líquido. Presenación 500 cm3",
     "brand": "Clean",
-    "catery": "Jabones"
+    "categories": [
+      "Jabones",
+      "Destacados"
+    ]
   }
 ]
