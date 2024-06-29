@@ -1,11 +1,14 @@
 [
   {
-    "name": "Gales"
+    "name": "Gales",
+    "image": "https://res.cloudinary.com/dn7npxeof/image/upload/v1719623077/Henry/delicias-gales/products/gales-brand_prm6ui.png"
   },
   {
-    "name": "Estrato 7"
+    "name": "Estrato 7",
+    "image": "https://res.cloudinary.com/dn7npxeof/image/upload/v1719623329/Henry/delicias-gales/products/estrato7-brand_okescb.png"
   },
   {
-    "name": "Clean"
+    "name": "Clean",
+    "image": "https://res.cloudinary.com/dn7npxeof/image/upload/v1719623505/Henry/delicias-gales/products/clean-brand_b8r1vn.png"
   }
 ]
