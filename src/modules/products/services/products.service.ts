@@ -3,7 +3,12 @@ import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
 import { UUID } from 'crypto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from 'src/entities/product.entity';
-import { In, Repository } from 'typeorm';
+import {
+  FindOptionsOrderValue,
+  FindOptionsWhere,
+  In,
+  Repository,
+} from 'typeorm';
 import { Category } from 'src/entities/category.entity';
 import { Brand } from 'src/entities/brand.entity';
 
@@ -42,8 +47,18 @@ export class ProductsService {
     return newProduct;
   }
 
-  async findAll() {
-    const products = await this.productRepository.find();
+  async findAll(status) {
+    console.log(status);
+    const where: FindOptionsWhere<Product> = {};
+
+    if (status) where.status = status;
+
+    const conditions: any = {
+      where,
+      order: { updatedAt: 'DESC' as FindOptionsOrderValue },
+      relations: ['categories'],
+    };
+    const products = await this.productRepository.find(conditions);
     return products;
   }
 

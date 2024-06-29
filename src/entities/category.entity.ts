@@ -22,6 +22,9 @@ export class Category {
   @Column({ type: 'varchar', length: 255 })
   description: string;
 
+  @Column({ type: 'boolean', default: true })
+  show: boolean;
+
   @Column({
     type: 'varchar',
     length: 255,

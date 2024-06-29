@@ -7,10 +7,14 @@ import {
   Param,
   Delete,
   ParseUUIDPipe,
+  Query,
+  ParseEnumPipe,
 } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
 import { UUID } from 'crypto';
+import { ApiQuery } from '@nestjs/swagger';
+import { ProductStatus } from 'src/models/productStatus.enum';
 
 @Controller('products')
 export class ProductsController {
@@ -22,8 +26,12 @@ export class ProductsController {
   }
 
   @Get()
-  findAll() {
-    return this.productsService.findAll();
+  @ApiQuery({ name: 'status', required: false })
+  findAll(
+    @Query('status', new ParseEnumPipe(ProductStatus, { optional: true }))
+    status?: ProductStatus,
+  ) {
+    return this.productsService.findAll(status);
   }
 
   @Get(':id')
