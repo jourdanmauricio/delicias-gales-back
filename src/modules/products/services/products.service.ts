@@ -56,7 +56,7 @@ export class ProductsService {
     const conditions: any = {
       where,
       order: { updatedAt: 'DESC' as FindOptionsOrderValue },
-      relations: ['categories'],
+      relations: ['categories', 'brand'],
     };
     const products = await this.productRepository.find(conditions);
     return products;
