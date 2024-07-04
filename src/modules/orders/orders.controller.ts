@@ -25,6 +25,8 @@ export class OrdersController {
 
   @ApiBearerAuth()
   @Get()
+  @Roles(Role.ADMIN, Role.SELLER, Role.CUSTOMER)
+  @UseGuards(AuthGuard, RolesGuard)
   findAll(@Req() request) {
     const userId = request.user.id;
     return this.ordersService.findAll(userId);

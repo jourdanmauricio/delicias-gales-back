@@ -22,6 +22,7 @@ export class OrdersService {
   ) {}
   async findAll(userId: UUID) {
     const user = await this.usersRepository.findOneBy({ id: userId });
+
     if (user.role !== 'admin') {
       const orderUsers = await this.ordersRepository.find({
         where: { user: { id: userId } },
