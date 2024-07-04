@@ -25,8 +25,9 @@ export class OrdersController {
 
   @ApiBearerAuth()
   @Get()
-  findAll() {
-    return this.ordersService.findAll();
+  findAll(@Req() request) {
+    const userId = request.user.id;
+    return this.ordersService.findAll(userId);
   }
 
   @ApiBearerAuth()
