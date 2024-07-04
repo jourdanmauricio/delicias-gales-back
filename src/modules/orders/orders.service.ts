@@ -22,12 +22,21 @@ export class OrdersService {
   ) {}
   async findAll(userId: UUID) {
     const user = await this.usersRepository.findOneBy({ id: userId });
+    console.log(user);
 
     if (user.role !== 'admin') {
-      const orderUsers = await this.ordersRepository.find({
-        where: { user: { id: userId } },
-      });
-      return orderUsers;
+      if (user.role === 'customer' || user.role === 'employee') {
+        const orderUsers = await this.ordersRepository.find({
+          where: { user: { id: userId } },
+        });
+        return orderUsers;
+      }
+      if (user.role === 'seller') {
+        const orderSeller = await this.ordersRepository.find({
+          where: { user: { id: userId, sellerId: userId } },
+        });
+        return orderSeller;
+      }
     }
     const orders = await this.ordersRepository.find();
     return orders;
