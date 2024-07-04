@@ -33,7 +33,7 @@ export class OrdersService {
       }
       if (user.role === 'seller') {
         const orderSeller = await this.ordersRepository.find({
-          where: { user: { id: userId, sellerId: userId } },
+          where: { user: { sellerId: userId } },
         });
         return orderSeller;
       }
