@@ -33,7 +33,11 @@ export class OrdersService {
       }
       if (user.role === 'seller') {
         const orderSeller = await this.ordersRepository.find({
-          where: { user: { sellerId: userId } },
+          where: [
+            { user: { sellerId: userId } }, // Órdenes asociadas al vendedor
+            { user: { id: userId } }, // Órdenes creadas por el vendedor
+          ],
+          relations: ['user'], // Aseguramos que se unan las relaciones necesarias
         });
         return orderSeller;
       }
@@ -41,6 +45,7 @@ export class OrdersService {
     const orders = await this.ordersRepository.find();
     return orders;
   }
+
   async createOrder(
     userId: string,
     products: { id: string; quantity: number }[],
