@@ -1,6 +1,7 @@
 [
   {
     "name": "Chorizo de cerdo",
+    "slug": "chorizo-de-cerdo",
     "cod": "CH001",
     "originalPrice": 140,
     "wholesalePrice": 120,
@@ -19,6 +20,7 @@
   },
   {
     "name": "Salchichón Ibérico",
+    "slug": "salchichon-iberico",
     "cod": "SI002",
     "originalPrice": 160,
     "wholesalePrice": 140,
@@ -37,6 +39,7 @@
   },
   {
     "name": "Jamón Serrano",
+    "slug": "jamon-serrano",
     "cod": "JS003",
     "originalPrice": 200,
     "wholesalePrice": 180,
@@ -55,6 +58,7 @@
   },
   {
     "name": "Lomo Embuchado",
+    "slug": "lomo-embuchado",
     "cod": "LE004",
     "originalPrice": 180,
     "wholesalePrice": 160,
@@ -72,6 +76,7 @@
   },
   {
     "name": "Chistorra",
+    "slug": "chistorra",
     "cod": "CH005",
     "originalPrice": 100,
     "wholesalePrice": 85,
@@ -89,6 +94,7 @@
   },
   {
     "name": "Jabon en Gel 800 gramos",
+    "slug": "jabon-en-gel-800-gramos",
     "cod": "JG001",
     "originalPrice": 900,
     "wholesalePrice": 850,
@@ -106,6 +112,7 @@
   },
   {
     "name": "Jabon en Gel 400 gramos",
+    "slug": "jabon-en-gel-400-gramos",
     "cod": "JG002",
     "originalPrice": 500,
     "wholesalePrice": 450,
@@ -123,6 +130,7 @@
   },
   {
     "name": "Jabon líquido 1 litro",
+    "slug": "jabon-liquido-1-litro",
     "cod": "JL001",
     "originalPrice": 1000,
     "wholesalePrice": 950,
@@ -140,6 +148,7 @@
   },
   {
     "name": "Jabon líquido 500 cm3",
+    "slug": "jabon-liquido-500-cm3",
     "cod": "JL002",
     "originalPrice": 500,
     "wholesalePrice": 450,

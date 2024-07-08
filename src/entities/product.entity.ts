@@ -27,6 +27,9 @@ export class Product {
   @Column({ type: 'varchar', length: 255, unique: true })
   name: string;
 
+  @Column({ type: 'varchar', length: 255 })
+  slug: string;
+
   @Column({ type: 'varchar', length: 20, unique: true })
   cod: string;
 

@@ -82,6 +82,20 @@ export class ProductsService {
     return product;
   }
 
+  async findOneBySlug(slug: string) {
+    const product = await this.productRepository.findOne({
+      where: { slug },
+      relations: [
+        'categories',
+        'brand',
+        'attributes',
+        'attributes.attribute',
+        'images',
+      ],
+    });
+    return product;
+  }
+
   async removeCategoryByProd(productId: UUID, categoryId: UUID) {
     const product = await this.productRepository.findOne({
       where: { id: productId },

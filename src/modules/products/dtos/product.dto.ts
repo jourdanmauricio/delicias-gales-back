@@ -26,6 +26,15 @@ export class CreateProductDto {
   readonly name: string;
 
   /**
+   * El slug del producto debe ser una cadena de texto, máximo 50 caracteres
+   * @example 'chorizo-de-cantimpalo'
+   */
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(50)
+  readonly slug: string;
+
+  /**
    * El código del producto debe ser una cadena de texto, máximo 20 caracteres
    * @example 'CHO001'
    */
