@@ -100,12 +100,12 @@ export class Product {
   })
   updatedAt: Date;
 
-  @Exclude()
+  @Expose({ groups: ['findOne'] })
   @ManyToOne(() => Brand, (brand) => brand.products)
   @JoinColumn({ name: 'brand_id' })
   brand: Brand;
 
-  @Expose()
+  @Expose({ groups: ['findAll'] })
   get brandId() {
     if (this.brand) {
       return this.brand.id;

@@ -9,6 +9,7 @@ import {
   ParseUUIDPipe,
   Query,
   ParseEnumPipe,
+  SerializeOptions,
 } from '@nestjs/common';
 import { ProductsService } from '../services/products.service';
 import { CreateProductDto, UpdateProductDto } from '../dtos/product.dto';
@@ -27,6 +28,7 @@ export class ProductsController {
 
   @Get()
   @ApiQuery({ name: 'status', required: false })
+  @SerializeOptions({ groups: ['findAll'] })
   findAll(
     @Query('status', new ParseEnumPipe(ProductStatus, { optional: true }))
     status?: ProductStatus,
@@ -35,6 +37,7 @@ export class ProductsController {
   }
 
   @Get(':id')
+  @SerializeOptions({ groups: ['findOne'] })
   findOne(@Param('id', ParseUUIDPipe) id: UUID) {
     return this.productsService.findOne(id);
   }
