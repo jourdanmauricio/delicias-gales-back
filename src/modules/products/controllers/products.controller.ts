@@ -36,6 +36,12 @@ export class ProductsController {
     return this.productsService.findAll(status);
   }
 
+  @Get('find-by-slug/:slug')
+  @SerializeOptions({ groups: ['findOne'] })
+  findOneByName(@Param('slug') slug: string) {
+    return this.productsService.findOneBySlug(slug);
+  }
+
   @Get(':id')
   @SerializeOptions({ groups: ['findOne'] })
   findOne(@Param('id', ParseUUIDPipe) id: UUID) {
