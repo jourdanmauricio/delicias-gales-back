@@ -33,7 +33,7 @@ export class OrdersController {
   }
 
   @ApiBearerAuth()
-  @Post()
+  @Post('/seller-admin')
   createOrder(@Body() order: CreateOrderDto) {
     const { userId, products } = order;
     return this.ordersService.createOrder(userId, products);
