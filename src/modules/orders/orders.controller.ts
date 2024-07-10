@@ -40,6 +40,16 @@ export class OrdersController {
   }
 
   @ApiBearerAuth()
+  @Post()
+  @Roles(Role.ADMIN, Role.SELLER)
+  @UseGuards(AuthGuard, RolesGuard)
+  createOrderSeller(@Req() request, @Body() order: CreateOrderDto) {
+    const sellerId = request.user.id;
+    const { userId, products } = order;
+    return this.ordersService.createOrderSeller(sellerId, userId, products);
+  }
+
+  @ApiBearerAuth()
   @Get(':id')
   findById(@Param('id', ParseUUIDPipe) id: UUID) {
     return this.ordersService.findById(id);
