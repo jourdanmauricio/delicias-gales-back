@@ -22,5 +22,35 @@
     "customerType": "retail",
     "address": "Av Segurola 1520",
     "billing": false
+  },
+  {
+    "name": "Augusto Compra",
+    "phone": "311223335",
+    "email": "customer2@gales.com",
+    "identification": "12345678",
+    "role": "customer",
+    "customerType": "retail",
+    "address": "Av Segurola 1521",
+    "billing": false
+  },
+  {
+    "name": "Sofia Compra",
+    "phone": "311223335",
+    "email": "customer3@gales.com",
+    "identification": "12345679",
+    "role": "customer",
+    "customerType": "retail",
+    "address": "Av Segurola 1522",
+    "billing": false
+  },
+  {
+    "name": "Carmen Compra",
+    "phone": "311223335",
+    "email": "customer4@gales.com",
+    "identification": "12345680",
+    "role": "customer",
+    "customerType": "retail",
+    "address": "Av Segurola 1523",
+    "billing": false
   }
 ]
