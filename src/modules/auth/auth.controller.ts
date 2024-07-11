@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Put } from '@nestjs/common';
+import { Body, Controller, Post, Put, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/users.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -9,6 +9,10 @@ import { ForgotPasswordDto, LoginUserDto, RecoveryPassDto } from './auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @Get('google/login')
+  googleLogin() {
+    return { msg: 'google login' };
+  }
   @Post('signin')
   signin(@Body() credentials: LoginUserDto) {
     return this.authService.signin(credentials);
