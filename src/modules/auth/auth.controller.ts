@@ -1,4 +1,13 @@
-import { Body, Controller, Post, Put, Get, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Put,
+  Get,
+  UseGuards,
+  Req,
+  Res,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../users/users.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -10,6 +19,8 @@ import { GoogleOauthGuard } from 'src/guards/googleOauth.guard';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  // pendiente de terminar el redirect
+
   @Get('google/login')
   @UseGuards(GoogleOauthGuard)
   googleLogin() {
@@ -17,9 +28,10 @@ export class AuthController {
   }
   @Get('google/redirect')
   @UseGuards(GoogleOauthGuard)
-  handleGoogleRedirect() {
-    return { msg: 'google redirect' };
+  handleGoogleRedirect(@Req() request: Request, @Res() res: Response) {
+    res.redirect('localhost:3001/');
   }
+  // ---------------------------------
   @Post('signin')
   signin(@Body() credentials: LoginUserDto) {
     return this.authService.signin(credentials);

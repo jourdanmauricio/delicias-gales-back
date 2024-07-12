@@ -1,5 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateAdminUserDto, CreateUserDto, UpdateUserDto } from './users.dto';
+import {
+  CreateAdminUserDto,
+  CreateUserDto,
+  UpdateUserDto,
+  CreateUserwhitGoogleDto,
+} from './users.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -36,9 +41,21 @@ export class UsersService {
 
     return user;
   }
+  // agregre el siguiente  servisio debido a que el id debia tiparse como strig en este caso especifico
+  async findOneGoogle(id: string) {
+    const user = await this.usersRepository.findOneBy({ id });
+    if (!user) throw new NotFoundException('Usuario no encontrado');
+
+    return user;
+  }
 
   async create(data: CreateUserDto) {
     const newUser = this.usersRepository.create(data);
+    return await this.usersRepository.save(newUser);
+  }
+  async createWhitGoogle(data: CreateUserwhitGoogleDto) {
+    const newUser = this.usersRepository.create(data);
+    console.log('enttro a crear el usuario');
     return await this.usersRepository.save(newUser);
   }
 
