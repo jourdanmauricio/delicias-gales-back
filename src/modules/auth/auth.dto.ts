@@ -50,3 +50,8 @@ export class LoginUserDto {
   @IsNotEmpty({ message: 'El password es obligatorio' })
   password: string;
 }
+
+export type LoginUserDtoGoogle = {
+  email: string;
+  displayName: string;
+};

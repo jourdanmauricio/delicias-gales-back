@@ -3,10 +3,11 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { UsersModule } from '../users/users.module';
 import { NodemailerModule } from '../nodemailer/nodemailer.module';
+import { GoogleStrategy } from './utils/GoogleStategy';
 
 @Module({
   imports: [NodemailerModule, UsersModule],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, GoogleStrategy],
 })
 export class AuthModule {}
