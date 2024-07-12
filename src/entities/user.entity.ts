@@ -55,6 +55,7 @@ export class User {
     name: 'customer_type',
     enum: CustomerType,
     nullable: true,
+    default: CustomerType.RETAIL,
   })
   customerType?: CustomerType;
 

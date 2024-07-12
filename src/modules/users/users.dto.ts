@@ -104,7 +104,7 @@ export class CreateUserDto {
   @IsEnum(CustomerType, {
     message: 'CustomerType debe ser un valor válido de CustomerType',
   })
-  customerType: CustomerType;
+  customerType?: CustomerType;
 
   @IsEmpty()
   @ApiHideProperty()
@@ -137,6 +137,12 @@ export class CreateUserDto {
   @IsEmpty()
   sellerId?: string;
 }
+export class CreateUserwhitGoogleDto extends OmitType(CreateUserDto, [
+  'confPassword',
+  'identification',
+  'phone',
+  'status',
+]) {}
 
 export class CreateAdminUserDto extends OmitType(CreateUserDto, [
   'password',

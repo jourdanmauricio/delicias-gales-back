@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { loggerGlobal } from './middleware/logger.middleware';
+import * as session from 'express-session';
+import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,6 +22,18 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.use(
+    session({
+      secret: process.env.SESSION_PASSPORT,
+      saveUninitialized: false,
+      resave: false,
+      cookie: {
+        maxAge: 60000,
+      },
+    }),
+  );
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Delicias Gales S. A. S')

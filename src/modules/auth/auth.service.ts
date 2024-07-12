@@ -2,13 +2,11 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UUID } from 'crypto';
-
 import { UsersService } from '../users/users.service';
 import { NodemailerService } from '../nodemailer/nodemailer.service';
 import { CreateUserDto } from '../users/users.dto';
 import { LoginUserDto, LoginUserDtoGoogle, RecoveryPassDto } from './auth.dto';
 import { Role } from 'src/models/roles.enum';
-
 @Injectable()
 export class AuthService {
   constructor(
@@ -20,14 +18,17 @@ export class AuthService {
   async validateUser(details: LoginUserDtoGoogle) {
     console.log('AuthService');
     console.log(details);
-    // const user = await this.usersService.findByEmail(details.email);
-    // console.log(user);
+    const user = await this.usersService.findByEmail(details.email);
+    console.log(user);
 
-    // if (user) return user;
-    // const newUser = await this.usersService.create({
-    //   email: details.email,
-    //   name: details.displayName,
-    // });
+    if (user) return user;
+
+    return await this.usersService.createWhitGoogle({
+      email: details.email,
+      name: details.displayName,
+      image: details.image,
+      password: details.password,
+    });
   }
 
   async signin(credentials: LoginUserDto) {

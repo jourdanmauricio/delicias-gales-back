@@ -54,4 +54,6 @@ export class LoginUserDto {
 export type LoginUserDtoGoogle = {
   email: string;
   displayName: string;
+  image: string;
+  password: string;
 };
