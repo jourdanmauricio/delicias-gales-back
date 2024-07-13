@@ -1,0 +1,38 @@
+[
+  {
+    "feature": "socialNetworks",
+    "name": "facebook",
+    "value": "https://facebook.com/delicias-gales",
+    "order": 1
+  },
+  {
+    "feature": "socialNetworks",
+    "name": "instagram",
+    "value": "https://instagram.com/delicias-gales",
+    "order": 2
+  },
+  {
+    "feature": "socialNetworks",
+    "name": "whatsapp",
+    "value": "https://wa.com/delicias-gales",
+    "order": 3
+  },
+  {
+    "feature": "socialNetworks",
+    "name": "youtube",
+    "value": "",
+    "order": 4
+  },
+  {
+    "feature": "contact",
+    "name": "email",
+    "value": "admin@deliciasgales.com",
+    "order": 5
+  },
+  {
+    "feature": "contact",
+    "name": "telefono",
+    "value": "01158046525",
+    "order": 6
+  }
+]

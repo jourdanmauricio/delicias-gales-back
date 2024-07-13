@@ -13,6 +13,7 @@ import { ProductInventories } from 'src/entities/productInventory';
 import { ProductAttribute } from 'src/entities/productAttributes.entity';
 import { Attribute } from 'src/entities/attribute.entity';
 import { OrderDetail } from 'src/entities/orderDetail.entity';
+import { Settings } from 'src/entities/settings.entity';
 
 const API_KEY = '12345678';
 const API_KEY_PROD = 'PROD12345678';
@@ -44,12 +45,13 @@ const API_KEY_PROD = 'PROD12345678';
             ProductImages,
             ProductInventories,
             ProductAttribute,
+            Settings,
           ],
           synchronize: true,
           autoLoadEntities: true,
           logging: ['error'],
           // logging: true,
-          //dropSchema: true,
+          // dropSchema: true,
         };
       },
     }),

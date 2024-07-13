@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import {
   loadUsers,
+  loadSettings,
   loadCategories,
   loadBrands,
   loadProducts,
@@ -16,12 +17,14 @@ import { CategoriesService } from './modules/categories/categories.service';
 import { BrandService } from './modules/brands/brands.service';
 import { ProductsService } from './modules/products/services/products.service';
 import { AttributesService } from './modules/attributes/attributes.service';
+import { SettingsService } from './modules/settings/settings.service';
 
 @Injectable()
 export class SeederService {
   constructor(
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+    private readonly settingsService: SettingsService,
     private readonly categoryService: CategoriesService,
     private readonly brandService: BrandService,
     private readonly attributeService: AttributesService,
@@ -39,6 +42,7 @@ export class SeederService {
 
     await this.preloadAdminUser();
     await this.preloadUsers();
+    await this.preloadSettings();
     // await this.preloadEmployeeUser();
     await this.preloadCategories();
     await this.preloadBrands();
@@ -66,6 +70,15 @@ export class SeederService {
 
     for await (const user of users) {
       await this.usersRepository.save({ ...user, password: hashedPassword });
+    }
+    return true;
+  }
+
+  async preloadSettings() {
+    const settings = loadSettings();
+
+    for await (const setting of settings) {
+      await this.settingsService.create(setting);
     }
     return true;
   }
