@@ -6,6 +6,12 @@ export const loadUsers = () => {
   return parseData;
 };
 
+export const loadSettings = () => {
+  const data = readFileSync('src/database/data/settings.json', 'utf8');
+  const parseData = JSON.parse(data);
+  return parseData;
+};
+
 export const loadCategories = () => {
   const data = readFileSync('src/database/data/categories.json', 'utf8');
   const parseData = JSON.parse(data);
