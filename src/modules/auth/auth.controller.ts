@@ -13,6 +13,7 @@ import { CreateUserDto } from '../users/users.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { ForgotPasswordDto, LoginUserDto, RecoveryPassDto } from './auth.dto';
 import { GoogleOauthGuard } from 'src/guards/googleOauth.guard';
+import { Request, Response } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -29,7 +30,9 @@ export class AuthController {
   @Get('google/redirect')
   @UseGuards(GoogleOauthGuard)
   handleGoogleRedirect(@Req() request: Request, @Res() res: Response) {
-    res.redirect('localhost:3001/');
+    const encodeData = encodeURIComponent(JSON.stringify(request.user));
+    res.redirect(`http://localhost:3001/?data=${encodeData}`);
+    return 'Redirigiendo...';
   }
   // ---------------------------------
   @Post('signin')
