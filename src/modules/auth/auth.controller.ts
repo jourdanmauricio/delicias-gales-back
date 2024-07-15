@@ -31,7 +31,16 @@ export class AuthController {
   @UseGuards(GoogleOauthGuard)
   handleGoogleRedirect(@Req() request: Request, @Res() res: Response) {
     const encodeData = encodeURIComponent(JSON.stringify(request.user));
-    res.redirect(`http://localhost:3001/?data=${encodeData}`);
+    console.log(
+      '---------------------------aca inicia --------------------------------',
+    );
+
+    console.log('este es mi request', request.user);
+    console.log(
+      '---------------------aca termina -------------------------------------',
+    );
+
+    res.redirect(`http://localhost:3001/googleOauth?data=${encodeData}`);
     return 'Redirigiendo...';
   }
   // ---------------------------------
