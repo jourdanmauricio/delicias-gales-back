@@ -17,6 +17,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { Role } from 'src/models/roles.enum';
 import { AuthGuard } from 'src/guards/auth.guard';
+import { PayDto } from './pay.dto';
 
 @ApiTags('Orders')
 @Controller('orders')
@@ -33,20 +34,28 @@ export class OrdersController {
   }
 
   @ApiBearerAuth()
-  @Post('/seller-admin')
+  @Post()
   createOrder(@Body() order: CreateOrderDto) {
     const { userId, products } = order;
     return this.ordersService.createOrder(userId, products);
   }
 
   @ApiBearerAuth()
-  @Post()
+  @Post('/seller-admin')
   @Roles(Role.ADMIN, Role.SELLER)
   @UseGuards(AuthGuard, RolesGuard)
   createOrderSeller(@Req() request, @Body() order: CreateOrderDto) {
     const sellerId = request.user.id;
     const { userId, products } = order;
     return this.ordersService.createOrderSeller(sellerId, userId, products);
+  }
+
+  @ApiBearerAuth()
+  @Post('/pay')
+  @Roles(Role.CUSTOMER)
+  @UseGuards(AuthGuard, RolesGuard)
+  createPay(@Body() pay: PayDto) {
+    return this.ordersService.createPay(pay);
   }
 
   @ApiBearerAuth()

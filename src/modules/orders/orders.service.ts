@@ -7,6 +7,9 @@ import { User } from 'src/entities/user.entity';
 import { Product } from 'src/entities/product.entity';
 import { UpdateOrderProductDto } from './order.dto';
 import { UUID } from 'crypto';
+import { Preference } from 'mercadopago';
+import { mercadopagoConfig } from 'src/config/mercadoPago';
+import { PayDto } from './pay.dto';
 
 @Injectable()
 export class OrdersService {
@@ -227,5 +230,39 @@ export class OrdersService {
     }
 
     return finalOrder;
+  }
+
+  async createPay(pay: PayDto) {
+    const orderValidate = await this.ordersRepository.findOne({
+      where: { id: pay.orderId },
+      relations: ['user', 'orderDetails', 'orderDetails.product'],
+    });
+
+    if (!orderValidate) {
+      throw new NotFoundException('Order not found');
+    }
+    const preference = await new Preference(mercadopagoConfig.client).create({
+      body: {
+        items: [
+          {
+            id: pay.orderId,
+            title: `Orden numero ${pay.orderId} de ${orderValidate.user.name}`,
+            quantity: 1,
+            currency_id: 'COP',
+            unit_price: pay.amount,
+          },
+        ],
+        back_urls: {
+          success: 'http://localhost:3001/success',
+          failure: 'http://localhost:3001/failure',
+          pending: 'http://localhost:3001/pending',
+        },
+      },
+    });
+    console.log(preference);
+
+    return {
+      urlMercadoPago: preference.init_point!,
+    };
   }
 }
