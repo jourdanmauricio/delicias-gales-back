@@ -22,6 +22,8 @@ import { AttributesModule } from './modules/attributes/attributes.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ProductsAttributeController } from './modules/products/controllers/productAttribute.controller';
 import { SettingsModule } from './modules/settings/settings.module';
+import { ProductionModule } from './modules/production/production.module';
+import { FormulationsModule } from './modules/formulations/formulations.module';
 
 @Module({
   imports: [
@@ -53,6 +55,8 @@ import { SettingsModule } from './modules/settings/settings.module';
     BrandsModule,
     AttributesModule,
     SettingsModule,
+    ProductionModule,
+    FormulationsModule,
   ],
   controllers: [AppController, ProductsAttributeController],
   providers: [AppService, SeederService],
