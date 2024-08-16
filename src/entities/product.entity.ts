@@ -18,6 +18,10 @@ import { Brand } from './brand.entity';
 import { ProductStatus } from 'src/models/productStatus.enum';
 import { ProductAttribute } from './productAttributes.entity';
 import { OrderDetail } from './orderDetail.entity';
+import { ProductType } from 'src/models/productType.enum';
+import { FormulationItem } from './formulationItems';
+import { Production } from './production.entity';
+import { Formulation } from './formulations.entity';
 
 @Entity('products')
 export class Product {
@@ -141,7 +145,7 @@ export class Product {
   // }
 
   @OneToMany(() => ProductInventories, (inventory) => inventory.product)
-  inventories: ProductImages[];
+  inventories: ProductInventories[];
 
   @Exclude()
   @OneToMany(() => ProductAttribute, (prodAttr) => prodAttr.product)
@@ -163,7 +167,21 @@ export class Product {
     }
     return [];
   }
+  @Column({ type: 'enum', enum: ProductType, default: ProductType.MP })
+  productType: ProductType;
 
   @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.product)
   orderDetails: OrderDetail[];
+
+  @OneToMany(() => Formulation, (formulation) => formulation.product)
+  formulation: Formulation[];
+
+  @OneToMany(() => Production, (production) => production.product)
+  productions: Production;
+
+  @OneToMany(
+    () => FormulationItem,
+    (formulationItem) => formulationItem.product,
+  )
+  formulationItem: FormulationItem[];
 }
