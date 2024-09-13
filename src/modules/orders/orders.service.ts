@@ -10,6 +10,7 @@ import { UUID } from 'crypto';
 import { Preference } from 'mercadopago';
 import { mercadopagoConfig } from 'src/config/mercadoPago';
 import { PayDto } from './pay.dto';
+import { PdfInvoiceHelper } from 'src/utils/pdf-invoice-helper';
 
 @Injectable()
 export class OrdersService {
@@ -264,5 +265,18 @@ export class OrdersService {
     return {
       urlMercadoPago: preference.init_point!,
     };
+  }
+
+  async generatePdf(id: string): Promise<Buffer> {
+    const order = await this.ordersRepository.findOne({
+      where: { id },
+      relations: ['user', 'orderDetails', 'orderDetails.product'],
+    });
+    if (!order) {
+      throw new NotFoundException('Order not found');
+    }
+
+    const pdfBuffer = await new PdfInvoiceHelper().generatePdfPDFKit(order);
+    return pdfBuffer;
   }
 }
